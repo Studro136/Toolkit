@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toolkit — Every tool you need, free</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EFE7;
+    --ink:#1B1B18;
+    --ink-soft:#5B5A52;
+    --amber:#D9A441;
+    --amber-deep:#B8842B;
+    --teal:#2B5C56;
+    --card:#FFFFFF;
+    --line:#DEDACD;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;margin:0;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px;}
+
+  header{
+    padding:18px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;letter-spacing:-0.01em;}
+  .logo span{color:var(--amber-deep);}
+  .tool-count{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);border:1px solid var(--line);padding:4px 9px;border-radius:20px;}
+
+  .hero{padding:36px 0 28px;}
+  .hero h1{
+    font-size:32px;
+    line-height:1.15;
+    letter-spacing:-0.015em;
+    max-width:11ch;
+  }
+  .hero p{
+    color:var(--ink-soft);
+    font-size:15.5px;
+    line-height:1.55;
+    max-width:46ch;
+    margin-top:12px;
+  }
+
+  .tool-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:16px;
+  }
+  .tool-card h3{font-size:16px;margin-bottom:4px;}
+  .tool-card .desc{color:var(--ink-soft);font-size:13.5px;margin-bottom:16px;}
+
+  .drop{
+    border:1.5px dashed var(--line);
+    border-radius:10px;
+    padding:26px 16px;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:13.5px;
+    cursor:pointer;
+    transition:border-color .15s, background .15s;
+  }
+  .drop.active{border-color:var(--amber);background:#FBF6EA;}
+  .drop input{display:none;}
+
+  .row{display:flex;gap:10px;margin-top:14px;}
+  .field{flex:1;}
+  .field label{display:block;font-size:11.5px;color:var(--ink-soft);margin-bottom:5px;font-family:'IBM Plex Mono',monospace;}
+  .field input[type=number]{
+    width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:14px;background:#FAFAF7;
+  }
+  .lockrow{display:flex;align-items:center;gap:7px;margin-top:10px;font-size:12.5px;color:var(--ink-soft);}
+
+  button.primary{
+    margin-top:16px;width:100%;padding:12px;border:none;border-radius:9px;
+    background:var(--amber);color:#241A05;font-weight:600;font-size:14.5px;
+    font-family:'Space Grotesk',sans-serif;cursor:pointer;
+  }
+  button.primary:disabled{opacity:.4;}
+  button.primary:active{background:var(--amber-deep);}
+
+  .result{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+  .result img{max-width:100%;border-radius:8px;display:block;margin-bottom:10px;border:1px solid var(--line);}
+  .result .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);margin-bottom:10px;}
+  a.dl{
+    display:block;text-align:center;padding:11px;border-radius:8px;
+    background:var(--teal);color:#fff;text-decoration:none;font-weight:600;font-size:14px;
+    font-family:'Space Grotesk',sans-serif;
+  }
+
+  textarea{
+    width:100%;min-height:120px;padding:12px;border:1px solid var(--line);border-radius:8px;
+    font-family:'Inter',sans-serif;font-size:14.5px;resize:vertical;background:#FAFAF7;
+  }
+  .stats{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap;}
+  .stat{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft);}
+  .stat b{color:var(--ink);font-size:15px;display:block;font-family:'Space Grotesk',sans-serif;}
+
+  .soon-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .soon{
+    border:1px solid var(--line);border-radius:12px;padding:16px 14px;
+    background:repeating-linear-gradient(135deg,#FBFAF6,#FBFAF6 8px,#F5F2E9 8px,#F5F2E9 16px);
+  }
+  .soon h4{font-size:14px;margin:0 0 3px;}
+  .soon span{font-size:11px;color:var(--amber-deep);font-family:'IBM Plex Mono',monospace;}
+
+  .section-label{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber-deep);
+    margin:34px 0 14px;
+  }
+
+  footer{padding:30px 0 40px;color:var(--ink-soft);font-size:12.5px;border-top:1px solid var(--line);margin-top:20px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="nav">
+      <div class="logo">Tool<span>kit</span></div>
+      <div class="tool-count">2 live · 3 building</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Every tool you need, free, no signup</h1>
+    <p>Resize an image or check a word count right now — nothing uploads to a server, it all runs on your device.</p>
+  </section>
+
+  <!-- IMAGE RESIZER -->
+  <div class="tool-card">
+    <h3>Image Resizer</h3>
+    <div class="desc">Shrink a photo to an exact size or percentage, then download it.</div>
+
+    <label class="drop" id="drop">
+      <span id="dropText">Tap to choose an image</span>
+      <input type="file" id="fileInput" accept="image/*">
+    </label>
+
+    <div class="row">
+      <div class="field">
+        <label>WIDTH (PX)</label>
+        <input type="number" id="wField" placeholder="800">
+      </div>
+      <div class="field">
+        <label>HEIGHT (PX)</label>
+        <input type="number" id="hField" placeholder="600">
+      </div>
+    </div>
+    <div class="lockrow">
+      <input type="checkbox" id="lockRatio" checked>
+      <label for="lockRatio">Keep aspect ratio</label>
+    </div>
+
+    <button class="primary" id="resizeBtn" disabled>Resize image</button>
+
+    <div class="result" id="imgResult">
+      <img id="preview" alt="Resized preview">
+      <div class="meta" id="imgMeta"></div>
+      <a class="dl" id="downloadImg" download="resized.jpg">Download</a>
+    </div>
+  </div>
+
+  <!-- WORD COUNTER -->
+  <div class="tool-card">
+    <h3>Word &amp; Character Counter</h3>
+    <div class="desc">Paste or type text — counts update as you go.</div>
+    <textarea id="textInput" placeholder="Start typing or paste text here..."></textarea>
+    <div class="stats">
+      <div class="stat"><b id="wc">0</b>words</div>
+      <div class="stat"><b id="cc">0</b>characters</div>
+      <div class="stat"><b id="sc">0</b>sentences</div>
+      <div class="stat"><b id="rt">0</b>sec read time</div>
+    </div>
+  </div>
+
+  <div class="section-label">// more tools — in progress</div>
+  <div class="soon-grid">
+    <div class="soon"><h4>PDF Merge</h4><span>SOON</span></div>
+    <div class="soon"><h4>Unit Converter</h4><span>SOON</span></div>
+    <div class="soon"><h4>QR Generator</h4><span>SOON</span></div>
+    <div class="soon"><h4>Color Picker</h4><span>SOON</span></div>
+  </div>
+
+  <footer>
+    Built by Umer. Every tool runs in your browser — your files never leave your device.
+  </footer>
+</div>
+
+<script>
+  // --- IMAGE RESIZER ---
+  const drop = document.getElementById('drop');
+  const dropText = document.getElementById('dropText');
+  const fileInput = document.getElementById('fileInput');
+  const wField = document.getElementById('wField');
+  const hField = document.getElementById('hField');
+  const lockRatio = document.getElementById('lockRatio');
+  const resizeBtn = document.getElementById('resizeBtn');
+  const imgResult = document.getElementById('imgResult');
+  const preview = document.getElementById('preview');
+  const imgMeta = document.getElementById('imgMeta');
+  const downloadImg = document.getElementById('downloadImg');
+
+  let srcImage = null;
+  let origW = 0, origH = 0;
+
+  fileInput.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const img = new Image();
+    img.onload = () => {
+      srcImage = img;
+      origW = img.width; origH = img.height;
+      wField.value = origW;
+      hField.value = origH;
+      dropText.textContent = file.name + ' — tap to change';
+      drop.classList.add('active');
+      resizeBtn.disabled = false;
+    };
+    img.src = URL.createObjectURL(file);
+  });
+
+  wField.addEventListener('input', () => {
+    if (lockRatio.checked && origW) {
+      hField.value = Math.round(wField.value * (origH / origW));
+    }
+  });
+  hField.addEventListener('input', () => {
+    if (lockRatio.checked && origH) {
+      wField.value = Math.round(hField.value * (origW / origH));
+    }
+  });
+
+  resizeBtn.addEventListener('click', () => {
+    if (!srcImage) return;
+    const w = parseInt(wField.value) || origW;
+    const h = parseInt(hField.value) || origH;
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    canvas.getContext('2d').drawImage(srcImage, 0, 0, w, h);
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+    preview.src = dataUrl;
+    imgMeta.textContent = w + ' × ' + h + ' px';
+    downloadImg.href = dataUrl;
+    imgResult.style.display = 'block';
+  });
+
+  // --- WORD COUNTER ---
+  const textInput = document.getElementById('textInput');
+  const wc = document.getElementById('wc');
+  const cc = document.getElementById('cc');
+  const sc = document.getElementById('sc');
+  const rt = document.getElementById('rt');
+
+  textInput.addEventListener('input', () => {
+    const text = textInput.value;
+    const words = text.trim() === '' ? [] : text.trim().split(/\s+/);
+    const sentences = text.trim() === '' ? [] : text.trim().split(/[.!?]+/).filter(s => s.trim().length);
+    wc.textContent = words.length;
+    cc.textContent = text.length;
+    sc.textContent = sentences.length;
+    rt.textContent = Math.max(1, Math.round(words.length / 3.3));
+  });
+</script>
+</body>
+</html>

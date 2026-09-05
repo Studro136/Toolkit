@@ -3,127 +3,163 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Toolkit — Every tool you need, free</title>
+<title>Toolkit — always open, always free</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F2EFE7;
-    --ink:#1B1B18;
-    --ink-soft:#5B5A52;
-    --amber:#D9A441;
-    --amber-deep:#B8842B;
-    --teal:#2B5C56;
-    --card:#FFFFFF;
-    --line:#DEDACD;
+    --peg:#E4EAEE;
+    --peg-hole:#C7D1D8;
+    --steel:#2C3A45;
+    --steel-soft:#5B6B76;
+    --yellow:#F2B705;
+    --yellow-deep:#C99200;
+    --rust:#C4531B;
+    --card:#FDFEFE;
+    --line:#B9C6CE;
   }
   *{box-sizing:border-box;}
   body{
     margin:0;
-    background:var(--paper);
-    color:var(--ink);
+    color:var(--steel);
     font-family:'Inter',sans-serif;
     -webkit-font-smoothing:antialiased;
+    background-color:var(--peg);
+    background-image:
+      radial-gradient(circle, var(--peg-hole) 1.6px, transparent 1.6px);
+    background-size:28px 28px;
   }
-  h1,h2,h3{font-family:'Space Grotesk',sans-serif;margin:0;}
+  h1,h2,h3{font-family:'Big Shoulders',sans-serif;margin:0;font-weight:700;}
   .mono{font-family:'IBM Plex Mono',monospace;}
   .wrap{max-width:720px;margin:0 auto;padding:0 20px;}
 
-  header{
-    padding:18px 0;
-    border-bottom:1px solid var(--line);
-  }
+  header{padding:22px 0 8px;}
   .nav{display:flex;align-items:center;justify-content:space-between;}
-  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;letter-spacing:-0.01em;}
-  .logo span{color:var(--amber-deep);}
-  .tool-count{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);border:1px solid var(--line);padding:4px 9px;border-radius:20px;}
+  .logo{display:flex;align-items:center;gap:9px;}
+  .logo svg{flex-shrink:0;}
+  .logo-text{font-family:'Big Shoulders',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.01em;color:var(--steel);}
+  .tool-count{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--steel-soft);background:var(--card);border:1px solid var(--line);padding:5px 10px;border-radius:20px;}
 
-  .hero{padding:36px 0 28px;}
+  .hero{padding:26px 0 20px;}
   .hero h1{
-    font-size:32px;
-    line-height:1.15;
-    letter-spacing:-0.015em;
-    max-width:11ch;
+    font-size:38px;
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    max-width:12ch;
+    text-transform:uppercase;
   }
   .hero p{
-    color:var(--ink-soft);
+    color:var(--steel-soft);
     font-size:15.5px;
     line-height:1.55;
-    max-width:46ch;
-    margin-top:12px;
+    max-width:44ch;
+    margin-top:14px;
   }
 
-  .tool-card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:20px;
-    margin-bottom:16px;
+  .search-wrap{margin:18px 0 26px;position:relative;}
+  .search-wrap input{
+    width:100%;padding:13px 16px 13px 42px;border:1.5px solid var(--line);border-radius:6px;
+    font-family:'Inter',sans-serif;font-size:14.5px;background:var(--card);color:var(--steel);
   }
-  .tool-card h3{font-size:16px;margin-bottom:4px;}
-  .tool-card .desc{color:var(--ink-soft);font-size:13.5px;margin-bottom:16px;}
+  .search-wrap input:focus{outline:2px solid var(--yellow-deep);outline-offset:1px;}
+  .search-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);pointer-events:none;}
+  .no-results{display:none;color:var(--steel-soft);font-size:13.5px;padding:16px 0;text-align:center;}
+
+
+  /* pegboard card: hook notch at the top */
+  .pegcard{
+    position:relative;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    padding:26px 20px 20px;
+    margin:0 0 22px;
+  }
+  .pegcard::before{
+    content:"";
+    position:absolute;
+    top:-9px; left:22px;
+    width:16px; height:16px;
+    background:var(--peg);
+    border:1.5px solid var(--line);
+    border-radius:50%;
+  }
+  .pegcard.flagship{border-top:4px solid var(--yellow);}
+  .pegcard.flagship::before{border-top:none;top:-8px;}
+
+  .tool-head{display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+  .tool-head svg{flex-shrink:0;}
+  .pegcard h3{font-size:19px;letter-spacing:0.01em;}
+  .pegcard .desc{color:var(--steel-soft);font-size:13.5px;margin:4px 0 16px;line-height:1.5;}
 
   .drop{
     border:1.5px dashed var(--line);
-    border-radius:10px;
+    border-radius:6px;
     padding:26px 16px;
     text-align:center;
-    color:var(--ink-soft);
+    color:var(--steel-soft);
     font-size:13.5px;
     cursor:pointer;
     transition:border-color .15s, background .15s;
+    display:block;
   }
-  .drop.active{border-color:var(--amber);background:#FBF6EA;}
+  .drop.active{border-color:var(--yellow-deep);background:#FFF8E5;}
   .drop input{display:none;}
 
   .row{display:flex;gap:10px;margin-top:14px;}
   .field{flex:1;}
-  .field label{display:block;font-size:11.5px;color:var(--ink-soft);margin-bottom:5px;font-family:'IBM Plex Mono',monospace;}
+  .field label{display:block;font-size:11px;color:var(--steel-soft);margin-bottom:5px;font-family:'IBM Plex Mono',monospace;}
   .field input[type=number]{
-    width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;
-    font-family:'IBM Plex Mono',monospace;font-size:14px;background:#FAFAF7;
+    width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:5px;
+    font-family:'IBM Plex Mono',monospace;font-size:14px;background:var(--peg);color:var(--steel);
   }
-  .lockrow{display:flex;align-items:center;gap:7px;margin-top:10px;font-size:12.5px;color:var(--ink-soft);}
+  .lockrow{display:flex;align-items:center;gap:7px;margin-top:10px;font-size:12.5px;color:var(--steel-soft);}
 
   button.primary{
-    margin-top:16px;width:100%;padding:12px;border:none;border-radius:9px;
-    background:var(--amber);color:#241A05;font-weight:600;font-size:14.5px;
-    font-family:'Space Grotesk',sans-serif;cursor:pointer;
+    margin-top:16px;width:100%;padding:13px;border:2px solid var(--steel);border-radius:5px;
+    background:var(--yellow);color:var(--steel);font-weight:700;font-size:14.5px;
+    font-family:'Big Shoulders',sans-serif;letter-spacing:0.03em;text-transform:uppercase;cursor:pointer;
+    box-shadow:2px 2px 0 var(--steel);
   }
-  button.primary:disabled{opacity:.4;}
-  button.primary:active{background:var(--amber-deep);}
+  button.primary:disabled{opacity:.4;box-shadow:none;}
+  button.primary:active{transform:translate(2px,2px);box-shadow:none;}
 
-  .result{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
-  .result img{max-width:100%;border-radius:8px;display:block;margin-bottom:10px;border:1px solid var(--line);}
-  .result .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);margin-bottom:10px;}
+  .result{display:none;margin-top:14px;padding-top:14px;border-top:1.5px dashed var(--line);}
+  .result img{max-width:100%;border-radius:5px;display:block;margin-bottom:10px;border:1.5px solid var(--line);}
+  .result .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--steel-soft);margin-bottom:10px;}
   a.dl{
-    display:block;text-align:center;padding:11px;border-radius:8px;
-    background:var(--teal);color:#fff;text-decoration:none;font-weight:600;font-size:14px;
-    font-family:'Space Grotesk',sans-serif;
+    display:block;text-align:center;padding:11px;border-radius:5px;border:2px solid var(--steel);
+    background:var(--steel);color:#fff;text-decoration:none;font-weight:700;font-size:14px;
+    font-family:'Big Shoulders',sans-serif;letter-spacing:0.03em;text-transform:uppercase;
   }
 
   textarea{
-    width:100%;min-height:120px;padding:12px;border:1px solid var(--line);border-radius:8px;
-    font-family:'Inter',sans-serif;font-size:14.5px;resize:vertical;background:#FAFAF7;
+    width:100%;min-height:120px;padding:12px;border:1.5px solid var(--line);border-radius:5px;
+    font-family:'Inter',sans-serif;font-size:14.5px;resize:vertical;background:var(--peg);color:var(--steel);
   }
-  .stats{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap;}
-  .stat{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft);}
-  .stat b{color:var(--ink);font-size:15px;display:block;font-family:'Space Grotesk',sans-serif;}
+  .stats{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap;}
+  .stat{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--steel-soft);}
+  .stat b{color:var(--steel);font-size:19px;display:block;font-family:'Big Shoulders',sans-serif;}
+
+  .section-label{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--steel-soft);
+    margin:8px 0 14px;
+  }
 
   .soon-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   .soon{
-    border:1px solid var(--line);border-radius:12px;padding:16px 14px;
-    background:repeating-linear-gradient(135deg,#FBFAF6,#FBFAF6 8px,#F5F2E9 8px,#F5F2E9 16px);
+    position:relative;
+    border:1.5px dashed var(--line);border-radius:4px;padding:18px 14px 14px;
+    color:var(--steel-soft);
   }
-  .soon h4{font-size:14px;margin:0 0 3px;}
-  .soon span{font-size:11px;color:var(--amber-deep);font-family:'IBM Plex Mono',monospace;}
-
-  .section-label{
-    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber-deep);
-    margin:34px 0 14px;
+  .soon::before{
+    content:"";position:absolute;top:-8px;left:16px;width:14px;height:14px;
+    background:var(--peg);border:1.5px dashed var(--line);border-radius:50%;
   }
+  .soon h4{font-size:15px;margin:6px 0 4px;font-family:'Big Shoulders',sans-serif;font-weight:700;color:var(--steel-soft);}
+  .soon span{font-size:10.5px;font-family:'IBM Plex Mono',monospace;letter-spacing:0.04em;color:var(--rust);}
 
-  footer{padding:30px 0 40px;color:var(--ink-soft);font-size:12.5px;border-top:1px solid var(--line);margin-top:20px;}
+  footer{padding:30px 0 40px;color:var(--steel-soft);font-size:12.5px;border-top:1.5px dashed var(--line);margin-top:24px;}
 </style>
 </head>
 <body>
@@ -131,19 +167,31 @@
 
   <header>
     <div class="nav">
-      <div class="logo">Tool<span>kit</span></div>
-      <div class="tool-count">2 live · 3 building</div>
+      <div class="logo">
+        <img src="data:image/png;base64,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" alt="Studro logo" style="height:30px;width:auto;">
+        <span class="logo-text">Toolkit</span>
+      </div>
+      <div class="tool-count">2 live · 4 coming</div>
     </div>
   </header>
 
   <section class="hero">
-    <h1>Every tool you need, free, no signup</h1>
-    <p>Resize an image or check a word count right now — nothing uploads to a server, it all runs on your device.</p>
+    <h1>Grab a tool, get it done</h1>
+    <p>Everything here runs right in your browser — resize a photo or check a word count below without an upload, a signup, or a single rupee.</p>
   </section>
 
+  <div class="search-wrap">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#5B6B76" stroke-width="1.8"/><path d="M21 21l-4.3-4.3" stroke="#5B6B76" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <input type="text" id="toolSearch" placeholder="Search tools — e.g. image, pdf, word...">
+  </div>
+  <div class="no-results" id="noResults">No tool matches that search yet.</div>
+
   <!-- IMAGE RESIZER -->
-  <div class="tool-card">
-    <h3>Image Resizer</h3>
+  <div class="pegcard flagship tool-item" data-name="image resizer photo resize picture">
+    <div class="tool-head">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#2C3A45" stroke-width="1.8"/><circle cx="8.5" cy="9.5" r="1.5" fill="#2C3A45"/><path d="M3 16l5-5 4 4 3-3 6 6" stroke="#2C3A45" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <h3>Image Resizer</h3>
+    </div>
     <div class="desc">Shrink a photo to an exact size or percentage, then download it.</div>
 
     <label class="drop" id="drop">
@@ -176,8 +224,11 @@
   </div>
 
   <!-- WORD COUNTER -->
-  <div class="tool-card">
-    <h3>Word &amp; Character Counter</h3>
+  <div class="pegcard flagship tool-item" data-name="word character counter text count">
+    <div class="tool-head">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="#2C3A45" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9h8M8 13h8M8 17h4" stroke="#2C3A45" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <h3>Word &amp; Character Counter</h3>
+    </div>
     <div class="desc">Paste or type text — counts update as you go.</div>
     <textarea id="textInput" placeholder="Start typing or paste text here..."></textarea>
     <div class="stats">
@@ -188,16 +239,16 @@
     </div>
   </div>
 
-  <div class="section-label">// more tools — in progress</div>
+  <div class="section-label tool-item" data-name="" id="soonLabel">hanging up next —</div>
   <div class="soon-grid">
-    <div class="soon"><h4>PDF Merge</h4><span>SOON</span></div>
-    <div class="soon"><h4>Unit Converter</h4><span>SOON</span></div>
-    <div class="soon"><h4>QR Generator</h4><span>SOON</span></div>
-    <div class="soon"><h4>Color Picker</h4><span>SOON</span></div>
+    <div class="soon tool-item" data-name="pdf merge combine document"><h4>PDF Merge</h4><span>BUILDING</span></div>
+    <div class="soon tool-item" data-name="unit converter measurement convert"><h4>Unit Converter</h4><span>BUILDING</span></div>
+    <div class="soon tool-item" data-name="qr generator code"><h4>QR Generator</h4><span>PLANNED</span></div>
+    <div class="soon tool-item" data-name="color picker hex code"><h4>Color Picker</h4><span>PLANNED</span></div>
   </div>
 
   <footer>
-    Built by Umer. Every tool runs in your browser — your files never leave your device.
+    Built by Umer, from Studro. Every tool runs in your browser — your files never leave your device.
   </footer>
 </div>
 
@@ -274,6 +325,27 @@
     cc.textContent = text.length;
     sc.textContent = sentences.length;
     rt.textContent = Math.max(1, Math.round(words.length / 3.3));
+  });
+
+  // --- TOOL SEARCH ---
+  const toolSearch = document.getElementById('toolSearch');
+  const noResults = document.getElementById('noResults');
+  const soonLabel = document.getElementById('soonLabel');
+  const allItems = Array.from(document.querySelectorAll('.tool-item'));
+
+  toolSearch.addEventListener('input', () => {
+    const q = toolSearch.value.trim().toLowerCase();
+    let visibleCount = 0;
+    allItems.forEach(item => {
+      if (item.id === 'soonLabel') return; // handled separately below
+      const name = item.getAttribute('data-name') || '';
+      const match = q === '' || name.includes(q);
+      item.style.display = match ? '' : 'none';
+      if (match) visibleCount++;
+    });
+    const soonVisible = allItems.some(i => i.classList.contains('soon') && i.style.display !== 'none');
+    soonLabel.style.display = soonVisible ? '' : 'none';
+    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
   });
 </script>
 </body>

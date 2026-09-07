@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Toolkit — free tools, no signup</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-90EWDGWK8V"></script>
@@ -26,6 +26,9 @@
     --line:#E7E9EE;
     --coral:#FF5A36;
     --coral-soft:#FFE7E0;
+    --gold:#C9A961;
+    --gold-deep:#A9832F;
+    --gold-soft:#F6EFDD;
     --blue:#2E6BE6;
     --blue-soft:#E4EBFF;
     --mint:#00A896;
@@ -53,20 +56,25 @@
     margin-bottom:-42px;
   }
   .hero h1{
-    color:#fff;font-size:30px;line-height:1.2;letter-spacing:-0.01em;max-width:15ch;
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-style:italic;
+    color:#fff;font-size:33px;line-height:1.18;letter-spacing:-0.01em;max-width:13ch;
   }
   .hero p{color:rgba(255,255,255,0.72);font-size:14.5px;line-height:1.55;max-width:42ch;margin-top:10px;}
   .trust-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;}
   .trust-pill{
     display:flex;align-items:center;gap:6px;
-    background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;
-    padding:6px 12px 6px 10px;font-size:12px;color:#fff;
+    background:rgba(255,255,255,0.08);border:1px solid rgba(201,169,97,0.35);border-radius:20px;
+    padding:6px 12px 6px 10px;font-size:11.5px;color:rgba(255,255,255,0.9);letter-spacing:0.01em;
   }
+  .trust-pill b{color:var(--gold);font-weight:600;}
 
   .shell{
     position:relative;background:var(--card);border-radius:20px;
-    box-shadow:0 20px 50px -20px rgba(19,27,46,0.35);
-    padding:22px 18px 8px;
+    box-shadow:0 30px 60px -24px rgba(19,27,46,0.4), 0 2px 0 rgba(201,169,97,0.5);
+    padding:24px 18px 8px;
+    border-top:2px solid var(--gold);
   }
 
   .search-wrap{margin:0 0 20px;position:relative;}
@@ -81,7 +89,9 @@
   .tool-card{
     background:var(--card);border:1px solid var(--line);border-radius:16px;
     padding:18px 16px;margin-bottom:16px;
+    transition:box-shadow .15s ease, border-color .15s ease;
   }
+  .tool-card:active{box-shadow:0 4px 16px -8px rgba(19,27,46,0.18);}
   .tool-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
   .icon-chip{
     width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
@@ -90,6 +100,18 @@
   .icon-chip.coral{background:var(--coral-soft);}
   .icon-chip.violet{background:var(--violet-soft);}
   .icon-chip.red{background:#FBE2E2;}
+  .icon-chip.mint{background:var(--mint-soft);}
+
+  .checker-bg{
+    background-image:
+      linear-gradient(45deg,#ccc 25%,transparent 25%),
+      linear-gradient(-45deg,#ccc 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#ccc 75%),
+      linear-gradient(-45deg,transparent 75%,#ccc 75%);
+    background-size:16px 16px;
+    background-position:0 0,0 8px,8px -8px,-8px 0px;
+    border-radius:10px;
+  }
 
   .field select{
     width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;
@@ -119,9 +141,10 @@
     margin-top:16px;width:100%;padding:13px;border:none;border-radius:12px;
     background:var(--blue);color:#fff;font-weight:700;font-size:14.5px;
     font-family:'Sora',sans-serif;cursor:pointer;box-shadow:0 8px 18px -8px rgba(46,107,230,0.6);
+    transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
   }
   button.primary:disabled{opacity:.4;box-shadow:none;}
-  button.primary:active{transform:translateY(1px);}
+  button.primary:active{transform:scale(0.98) translateY(1px);box-shadow:0 4px 10px -6px rgba(46,107,230,0.5);}
 
   .result{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
   .result img{max-width:100%;border-radius:10px;display:block;margin-bottom:10px;border:1px solid var(--line);}
@@ -162,7 +185,11 @@
   .soon h4{font-size:14px;margin:8px 0 4px;font-family:'Sora',sans-serif;color:var(--ink);}
   .soon span{font-size:10.5px;font-weight:700;color:var(--ink-soft);}
 
-  footer{padding:26px 0 40px;color:var(--ink-soft);font-size:12.5px;text-align:center;}
+  footer{
+    padding:30px 0 40px;color:var(--ink-soft);font-size:12px;text-align:center;
+    letter-spacing:0.01em;
+  }
+  footer .divider{width:36px;height:2px;background:var(--gold);margin:0 auto 14px;border-radius:2px;}
 
   /* INTRO SCREEN */
   .intro-screen{
@@ -175,20 +202,41 @@
   @keyframes introFadeOut{to{opacity:0;visibility:hidden;}}
   .intro-logo{height:64px;width:auto;opacity:0;transform:scale(0.6);transition:opacity .7s ease, transform .7s ease;}
   .intro-logo.show{opacity:1;transform:scale(1);}
-  .intro-word{font-family:'Sora',sans-serif;font-weight:800;font-size:32px;color:#fff;letter-spacing:0.1em;margin:6px 0 0;display:flex;gap:2px;}
+  .intro-word{font-family:'Fraunces',serif;font-weight:600;font-size:34px;letter-spacing:0.14em;color:#fff;margin:8px 0 0;display:flex;gap:1px;}
   .intro-word span{display:inline-block;opacity:0;transform:translateY(14px);transition:opacity .4s ease, transform .4s ease;}
   .intro-word span.show{opacity:1;transform:translateY(0);}
   .intro-tagline{color:rgba(255,255,255,0.68);font-size:13.5px;margin:2px 0 0;opacity:0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease;}
   .intro-tagline.show{opacity:1;transform:translateY(0);}
   .intro-start{
-    margin-top:14px;padding:13px 36px;border:none;border-radius:30px;
-    background:var(--coral);color:#fff;font-family:'Sora',sans-serif;font-weight:700;font-size:15px;
-    cursor:pointer;opacity:0;transform:translateY(10px);
-    transition:opacity .6s ease, transform .6s ease, filter .15s;
-    box-shadow:0 12px 26px -8px rgba(255,90,54,0.65);
+    margin-top:16px;padding:13px 40px;border:1px solid rgba(201,169,97,0.5);border-radius:30px;
+    background:linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%);
+    color:#1A1305;font-family:'Sora',sans-serif;font-weight:700;font-size:14.5px;letter-spacing:0.03em;
+    cursor:pointer;opacity:0;transform:translateY(10px) scale(0.98);
+    transition:opacity .6s ease, transform .2s ease, filter .15s;
+    box-shadow:0 14px 30px -10px rgba(201,169,97,0.55);
   }
-  .intro-start.show{opacity:1;transform:translateY(0);}
-  .intro-start:active{filter:brightness(0.92);}
+  .intro-start.show{opacity:1;transform:translateY(0) scale(1);}
+  .intro-start:active{filter:brightness(0.94);transform:scale(0.97);}
+
+  /* MASCOT */
+  .mascot-wrap{
+    display:flex;flex-direction:column;align-items:flex-end;gap:0;
+    margin:-6px 2px 10px 0;opacity:0;pointer-events:none;
+  }
+  .mascot-wrap.fly-in{animation:mascotFly .85s cubic-bezier(.22,.85,.32,1.25) forwards;}
+  @keyframes mascotFly{
+    0%{opacity:0;transform:translate(70px,-46px) rotate(14deg) scale(.55);}
+    60%{opacity:1;transform:translate(-8px,4px) rotate(-5deg) scale(1.06);}
+    100%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1);}
+  }
+  .mascot-wrap.fade-out{animation:mascotFade .55s ease forwards;}
+  @keyframes mascotFade{to{opacity:0;transform:translateY(-8px) scale(.92);}}
+  .mascot-figure{width:74px;height:74px;filter:drop-shadow(0 8px 14px rgba(19,27,46,0.25));}
+  .mascot-bubble{
+    background:#fff;border:1.5px solid var(--line);border-radius:13px 13px 3px 13px;
+    padding:7px 12px;font-size:11.5px;font-weight:600;color:var(--ink);
+    box-shadow:0 10px 22px -12px rgba(19,27,46,0.35);margin:-4px 10px 0 0;white-space:nowrap;
+  }
 
   /* SEARCH HIGHLIGHT */
   .tool-card.search-hit{animation:searchPulse 1s ease-in-out 1;box-shadow:0 0 0 3px var(--blue), 0 12px 28px -12px rgba(46,107,230,0.55);}
@@ -212,7 +260,7 @@
         <img src="data:image/png;base64,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" alt="Studro logo">
         <span class="logo-text">Toolkit</span>
       </div>
-      <div class="tool-count">4 live · 3 coming</div>
+      <div class="tool-count">5 live · 2 coming</div>
     </div>
   </header>
 
@@ -221,14 +269,34 @@
       <h1>Grab a tool, get it done</h1>
       <p>Everything here runs right in your browser — resize a photo or check a word count without an upload, a signup, or a single rupee.</p>
       <div class="trust-row">
-        <div class="trust-pill">✓ 100% free</div>
-        <div class="trust-pill">✓ no signup</div>
-        <div class="trust-pill">✓ runs on your device</div>
+        <div class="trust-pill"><b>✓</b> 100% free</div>
+        <div class="trust-pill"><b>✓</b> no signup</div>
+        <div class="trust-pill"><b>✓</b> runs on your device</div>
       </div>
     </div>
   </section>
 
   <div class="shell">
+    <div class="mascot-wrap" id="mascotWrap">
+      <div class="mascot-bubble">Everything you need — right below! ✨</div>
+      <svg class="mascot-figure" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 55 Q10 70 20 90 Q35 78 40 60 Z" fill="#0E4A47"/>
+        <ellipse cx="50" cy="63" rx="15" ry="19" fill="#131B2E"/>
+        <path d="M64 58 Q78 50 82 38" stroke="#131B2E" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M82 30 l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1z" fill="#C9A961"/>
+        <path d="M36 58 Q26 66 28 76" stroke="#131B2E" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <circle cx="50" cy="34" r="19" fill="#FBD9B0"/>
+        <path d="M31 30 Q33 11 50 13 Q69 11 69 30 Q59 20 50 22 Q41 20 31 30Z" fill="#131B2E"/>
+        <circle cx="43" cy="35" r="3" fill="#131B2E"/>
+        <circle cx="58" cy="35" r="3" fill="#131B2E"/>
+        <circle cx="44" cy="34" r="1" fill="#fff"/>
+        <circle cx="59" cy="34" r="1" fill="#fff"/>
+        <circle cx="38" cy="41" r="3" fill="#FF9E8A" opacity="0.55"/>
+        <circle cx="62" cy="41" r="3" fill="#FF9E8A" opacity="0.55"/>
+        <path d="M45 43 Q50 47 55 43" stroke="#131B2E" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+
     <div class="search-wrap">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#5C6470" stroke-width="1.8"/><path d="M21 21l-4.3-4.3" stroke="#5C6470" stroke-width="1.8" stroke-linecap="round"/></svg>
       <input type="text" id="toolSearch" placeholder="Search tools — e.g. image, pdf, word...">
@@ -308,6 +376,31 @@
         <div class="dl-note">Button not saving? Long-press the image above and choose "Download image".</div>
       </div>
     </div>
+
+      <!-- BACKGROUND REMOVER -->
+    <div class="tool-card tool-item" data-name="background remover remove bg transparent cutout erase background isolate subject">
+      <div class="tool-head">
+        <div class="icon-chip mint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l4 4-8 8-4-4 8-8z" stroke="#00A896" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 20h16" stroke="#00A896" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="2 3"/></svg></div>
+        <h3>Background Remover</h3>
+      </div>
+      <div class="desc">Cuts your subject out and gives a transparent PNG. First use may take 15-30s (downloads an AI model once) — faster after that.</div>
+
+      <label class="drop" id="dropBg">
+        <span id="dropTextBg">Tap to choose an image</span>
+        <input type="file" id="fileInputBg" accept="image/*">
+      </label>
+
+      <button class="primary" id="removeBgBtn" disabled>Remove background</button>
+
+      <div class="result" id="bgResult">
+        <div class="checker-bg" style="padding:8px;margin-bottom:10px;">
+          <img id="previewBg" alt="Background removed preview" style="max-width:100%;display:block;">
+        </div>
+        <div class="meta" id="bgMeta"></div>
+        <a class="dl" id="downloadBg" download="no-background.png">Download PNG</a>
+        <div class="dl-note">Button not saving? Long-press the image above and choose "Download image".</div>
+      </div>
+    </div>
     </div>
 
     <div class="category-section" id="cat-text">
@@ -363,7 +456,7 @@
     </div>
   </div>
 
-  <footer>Built by Umer, from Studro. Your files never leave your device.</footer>
+  <footer><div class="divider"></div>Built by Umer, from Studro. Your files never leave your device.</footer>
 </div>
 </div>
 
@@ -396,6 +489,12 @@
       drop.classList.add('active');
       resizeBtn.disabled = false;
     };
+    img.onerror = () => {
+      dropText.textContent = 'Could not read that file — try a different image.';
+      drop.classList.remove('active');
+      resizeBtn.disabled = true;
+      srcImage = null;
+    };
     img.src = URL.createObjectURL(file);
   });
 
@@ -404,19 +503,48 @@
 
   resizeBtn.addEventListener('click', () => {
     if (!srcImage) return;
-    const w = parseInt(wField.value) || origW;
-    const h = parseInt(hField.value) || origH;
-    const canvas = document.createElement('canvas');
-    canvas.width = w; canvas.height = h;
-    canvas.getContext('2d').drawImage(srcImage, 0, 0, w, h);
-    canvas.toBlob((blob) => {
-      const blobUrl = URL.createObjectURL(blob);
-      preview.src = blobUrl;
-      imgMeta.textContent = w + ' × ' + h + ' px';
-      downloadImg.href = blobUrl;
-      downloadImg.setAttribute('download', 'resized-' + w + 'x' + h + '.jpg');
-      imgResult.style.display = 'block';
-    }, 'image/jpeg', 0.9);
+    resizeBtn.disabled = true;
+    resizeBtn.textContent = 'Resizing...';
+
+    setTimeout(() => {
+      try {
+        const MAX_SIDE = 4000;
+        let w = parseInt(wField.value, 10);
+        let h = parseInt(hField.value, 10);
+        if (!Number.isFinite(w) || w <= 0) w = origW;
+        if (!Number.isFinite(h) || h <= 0) h = origH;
+        w = Math.min(Math.max(w, 1), MAX_SIDE);
+        h = Math.min(Math.max(h, 1), MAX_SIDE);
+
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) throw new Error('no-2d-context');
+        ctx.drawImage(srcImage, 0, 0, w, h);
+
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            imgMeta.textContent = 'Could not create that size — try a smaller width/height.';
+            imgResult.style.display = 'block';
+          } else {
+            const blobUrl = URL.createObjectURL(blob);
+            preview.src = blobUrl;
+            imgMeta.textContent = w + ' × ' + h + ' px';
+            downloadImg.href = blobUrl;
+            downloadImg.setAttribute('download', 'resized-' + w + 'x' + h + '.jpg');
+            imgResult.style.display = 'block';
+          }
+          resizeBtn.disabled = false;
+          resizeBtn.textContent = 'Resize image';
+        }, 'image/jpeg', 0.9);
+      } catch (err) {
+        imgMeta.textContent = 'Something went wrong — try a smaller size (under ' + '4000px).';
+        imgResult.style.display = 'block';
+        resizeBtn.disabled = false;
+        resizeBtn.textContent = 'Resize image';
+        console.error(err);
+      }
+    }, 20);
   });
 
   const textInput = document.getElementById('textInput');
@@ -441,25 +569,37 @@
     const q = toolSearch.value.trim().toLowerCase();
     const tokens = q.split(/\s+/).filter(Boolean);
     let visibleCount = 0;
-    let firstMatchCard = null;
+    let bestCard = null;
+    let bestScore = 0;
 
     allItems.forEach(item => {
       item.classList.remove('search-hit');
-      const name = item.getAttribute('data-name') || '';
-      const match = tokens.length === 0 || tokens.every(t => name.includes(t));
+      const dataName = item.getAttribute('data-name') || '';
+      const visibleText = (item.textContent || '').toLowerCase();
+      const corpus = dataName + ' ' + visibleText;
+
+      let score = 0;
+      if (tokens.length === 0) {
+        score = 1;
+      } else {
+        tokens.forEach(t => { if (corpus.includes(t)) score++; });
+      }
+
+      const match = score > 0;
       item.style.display = match ? '' : 'none';
       if (match) {
         visibleCount++;
-        if (tokens.length && item.classList.contains('tool-card') && !firstMatchCard) {
-          firstMatchCard = item;
+        if (tokens.length && item.classList.contains('tool-card') && score > bestScore) {
+          bestScore = score;
+          bestCard = item;
         }
       }
     });
 
-    if (firstMatchCard) {
-      firstMatchCard.classList.add('search-hit');
+    if (bestCard) {
+      bestCard.classList.add('search-hit');
       if (q.length > 2) {
-        firstMatchCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        bestCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
 
@@ -507,6 +647,7 @@
     mergeBtn.disabled = true;
     mergeBtn.textContent = 'Merging...';
     try {
+      if (typeof PDFLib === 'undefined') throw new Error('pdf-lib-not-loaded');
       const mergedPdf = await PDFLib.PDFDocument.create();
       for (const file of selectedPdfFiles) {
         const bytes = await file.arrayBuffer();
@@ -522,8 +663,11 @@
       downloadPdf.setAttribute('download', 'merged.pdf');
       pdfResult.style.display = 'block';
     } catch (err) {
-      pdfMeta.textContent = 'Something went wrong — make sure all selected files are valid PDFs.';
+      pdfMeta.textContent = typeof PDFLib === 'undefined'
+        ? 'Could not load the PDF engine — check your internet connection and try again.'
+        : 'Something went wrong — make sure all selected files are valid PDFs.';
       pdfResult.style.display = 'block';
+      console.error(err);
     }
     mergeBtn.disabled = false;
     mergeBtn.textContent = 'Merge PDFs';
@@ -556,6 +700,12 @@
       dropTextEnh.textContent = file.name + ' — tap to change';
       dropEnh.classList.add('active');
       enhanceBtn.disabled = false;
+    };
+    img.onerror = () => {
+      dropTextEnh.textContent = 'Could not read that file — try a different image.';
+      dropEnh.classList.remove('active');
+      enhanceBtn.disabled = true;
+      srcImageEnh = null;
     };
     img.src = URL.createObjectURL(file);
   });
@@ -594,43 +744,136 @@
     enhanceBtn.textContent = 'Enhancing...';
 
     setTimeout(() => {
-      let scale = parseFloat(scaleSelect.value);
-      let targetW = Math.round(origWEnh * scale);
-      let targetH = Math.round(origHEnh * scale);
-      if (Math.max(targetW, targetH) > MAX_DIM) {
-        const shrink = MAX_DIM / Math.max(targetW, targetH);
-        targetW = Math.round(targetW * shrink);
-        targetH = Math.round(targetH * shrink);
-      }
+      try {
+        let scale = parseFloat(scaleSelect.value);
+        if (!Number.isFinite(scale) || scale <= 0) scale = 1;
+        let targetW = Math.round(origWEnh * scale);
+        let targetH = Math.round(origHEnh * scale);
+        if (Math.max(targetW, targetH) > MAX_DIM) {
+          const shrink = MAX_DIM / Math.max(targetW, targetH);
+          targetW = Math.round(targetW * shrink);
+          targetH = Math.round(targetH * shrink);
+        }
+        targetW = Math.max(targetW, 1);
+        targetH = Math.max(targetH, 1);
 
-      const canvas = document.createElement('canvas');
-      canvas.width = targetW; canvas.height = targetH;
-      const ctx = canvas.getContext('2d');
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      if (colorChk.checked) {
-        ctx.filter = 'contrast(112%) saturate(118%) brightness(103%)';
-      }
-      ctx.drawImage(srcImageEnh, 0, 0, targetW, targetH);
-      ctx.filter = 'none';
+        const canvas = document.createElement('canvas');
+        canvas.width = targetW; canvas.height = targetH;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) throw new Error('no-2d-context');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        if (colorChk.checked) {
+          ctx.filter = 'contrast(112%) saturate(118%) brightness(103%)';
+        }
+        ctx.drawImage(srcImageEnh, 0, 0, targetW, targetH);
+        ctx.filter = 'none';
 
-      if (sharpenChk.checked) {
-        const imageData = ctx.getImageData(0, 0, targetW, targetH);
-        const sharpened = sharpenImageData(imageData);
-        ctx.putImageData(sharpened, 0, 0);
-      }
+        if (sharpenChk.checked) {
+          const imageData = ctx.getImageData(0, 0, targetW, targetH);
+          const sharpened = sharpenImageData(imageData);
+          ctx.putImageData(sharpened, 0, 0);
+        }
 
-      canvas.toBlob((blob) => {
-        const blobUrl = URL.createObjectURL(blob);
-        previewEnh.src = blobUrl;
-        enhMeta.textContent = targetW + ' × ' + targetH + ' px';
-        downloadEnh.href = blobUrl;
-        downloadEnh.setAttribute('download', 'enhanced-' + targetW + 'x' + targetH + '.jpg');
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            enhMeta.textContent = 'Could not process this image — try a lower upscale option.';
+            enhResult.style.display = 'block';
+          } else {
+            const blobUrl = URL.createObjectURL(blob);
+            previewEnh.src = blobUrl;
+            enhMeta.textContent = targetW + ' × ' + targetH + ' px';
+            downloadEnh.href = blobUrl;
+            downloadEnh.setAttribute('download', 'enhanced-' + targetW + 'x' + targetH + '.jpg');
+            enhResult.style.display = 'block';
+          }
+          enhanceBtn.disabled = false;
+          enhanceBtn.textContent = 'Enhance image';
+        }, 'image/jpeg', 0.92);
+      } catch (err) {
+        enhMeta.textContent = 'Something went wrong — try "Keep size" instead of upscaling.';
         enhResult.style.display = 'block';
         enhanceBtn.disabled = false;
         enhanceBtn.textContent = 'Enhance image';
-      }, 'image/jpeg', 0.92);
+        console.error(err);
+      }
     }, 30);
+  });
+
+  // --- BACKGROUND REMOVER ---
+  const dropBg = document.getElementById('dropBg');
+  const dropTextBg = document.getElementById('dropTextBg');
+  const fileInputBg = document.getElementById('fileInputBg');
+  const removeBgBtn = document.getElementById('removeBgBtn');
+  const bgResult = document.getElementById('bgResult');
+  const previewBg = document.getElementById('previewBg');
+  const bgMeta = document.getElementById('bgMeta');
+  const downloadBg = document.getElementById('downloadBg');
+
+  let srcFileBg = null;
+  let removeBackgroundFn = null; // cached after first dynamic import
+
+  fileInputBg.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    srcFileBg = file;
+    dropTextBg.textContent = file.name + ' — tap to change';
+    dropBg.classList.add('active');
+    removeBgBtn.disabled = false;
+    bgResult.style.display = 'none';
+  });
+
+  // Shrink large photos before feeding the AI model — much faster on phones,
+  // with no visible quality loss for this purpose.
+  function downscaleForBg(file, maxDim) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        let { width: w, height: h } = img;
+        if (Math.max(w, h) > maxDim) {
+          const ratio = maxDim / Math.max(w, h);
+          w = Math.round(w * ratio); h = Math.round(h * ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('canvas export failed')), 'image/jpeg', 0.92);
+      };
+      img.onerror = reject;
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
+  removeBgBtn.addEventListener('click', async () => {
+    if (!srcFileBg) return;
+    removeBgBtn.disabled = true;
+    removeBgBtn.textContent = 'Loading AI model...';
+    bgResult.style.display = 'none';
+
+    try {
+      if (!removeBackgroundFn) {
+        const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm');
+        removeBackgroundFn = mod.default;
+      }
+
+      removeBgBtn.textContent = 'Removing background...';
+      const smallBlob = await downscaleForBg(srcFileBg, 1024);
+      const resultBlob = await removeBackgroundFn(smallBlob);
+
+      const url = URL.createObjectURL(resultBlob);
+      previewBg.src = url;
+      bgMeta.textContent = 'Background removed — transparent PNG ready';
+      downloadBg.href = url;
+      downloadBg.setAttribute('download', 'no-background.png');
+      bgResult.style.display = 'block';
+    } catch (err) {
+      bgMeta.textContent = 'Something went wrong. Try a smaller or clearer photo, or check your internet connection (the AI model needs to download once).';
+      bgResult.style.display = 'block';
+      console.error(err);
+    }
+
+    removeBgBtn.disabled = false;
+    removeBgBtn.textContent = 'Remove background';
   });
 
   // --- INTRO SCREEN ---
@@ -663,6 +906,15 @@
     setTimeout(() => {
       introScreen.style.display = 'none';
       mainApp.style.display = 'block';
+
+      const mascotWrap = document.getElementById('mascotWrap');
+      if (mascotWrap) {
+        requestAnimationFrame(() => mascotWrap.classList.add('fly-in'));
+        setTimeout(() => {
+          mascotWrap.classList.add('fade-out');
+          setTimeout(() => { mascotWrap.style.display = 'none'; }, 600);
+        }, 3600);
+      }
     }, 480);
   });
 </script>

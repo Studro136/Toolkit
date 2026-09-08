@@ -1085,7 +1085,7 @@
     try {
       if (!removeBackgroundFn) {
         removeBgBtn.textContent = 'Loading AI engine...';
-        const mod = await import('https://unpkg.com/@imgly/background-removal@1.7.0/dist/browser.js');
+        const mod = await import('https://esm.sh/@imgly/background-removal@1.7.0');
         removeBackgroundFn = mod.default || mod.removeBackground;
         if (typeof removeBackgroundFn !== 'function') throw new Error('bg-removal-lib-shape-unexpected');
       }
@@ -1111,7 +1111,7 @@
       if (msg === 'bg-removal-timeout') {
         bgMeta.textContent = 'This is taking too long — try a smaller photo or a faster internet connection.';
       } else {
-        bgMeta.textContent = 'Something went wrong. Try a smaller or clearer photo, or check your internet connection (the AI model needs to download once).';
+        bgMeta.textContent = 'Something went wrong. Try a smaller/clearer photo or a different internet connection. (Details: ' + (msg || 'unknown error') + ')';
       }
       bgResult.style.display = 'block';
       console.error(err);

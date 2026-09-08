@@ -101,6 +101,7 @@
   .icon-chip.violet{background:var(--violet-soft);}
   .icon-chip.red{background:#FBE2E2;}
   .icon-chip.mint{background:var(--mint-soft);}
+  .icon-chip.amber2{background:#FBEFD6;}
 
   .checker-bg{
     background-image:
@@ -149,6 +150,14 @@
   .result{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
   .result img{max-width:100%;border-radius:10px;display:block;margin-bottom:10px;border:1px solid var(--line);}
   .result .meta{font-size:12px;color:var(--ink-soft);margin-bottom:10px;}
+
+  .compare-wrap{position:relative;width:100%;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#eee;}
+  .compare-img{display:block;width:100%;height:auto;}
+  .compare-before{position:relative;}
+  .compare-after{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 50% 0 0);}
+  .compare-handle{position:absolute;top:0;bottom:0;left:50%;width:3px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.2), 0 0 8px rgba(0,0,0,.3);pointer-events:none;transform:translateX(-1.5px);}
+  .compare-slider{width:100%;margin-top:10px;accent-color:var(--blue);}
+  .compare-labels{display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:var(--ink-soft);margin-top:2px;margin-bottom:10px;}
   .dl-note{font-size:11.5px;color:var(--ink-soft);margin-top:8px;text-align:center;}
   a.dl{
     display:block;text-align:center;padding:12px;border-radius:12px;
@@ -218,24 +227,49 @@
   .intro-start.show{opacity:1;transform:translateY(0) scale(1);}
   .intro-start:active{filter:brightness(0.94);transform:scale(0.97);}
 
-  /* MASCOT */
+  /* MASCOT — jump-land entrance */
   .mascot-wrap{
-    display:flex;flex-direction:column;align-items:flex-end;gap:0;
-    margin:-6px 2px 10px 0;opacity:0;pointer-events:none;
+    display:flex;flex-direction:column;align-items:center;gap:0;
+    margin:0 0 6px;opacity:0;pointer-events:none;position:relative;
   }
-  .mascot-wrap.fly-in{animation:mascotFly .85s cubic-bezier(.22,.85,.32,1.25) forwards;}
-  @keyframes mascotFly{
-    0%{opacity:0;transform:translate(70px,-46px) rotate(14deg) scale(.55);}
-    60%{opacity:1;transform:translate(-8px,4px) rotate(-5deg) scale(1.06);}
-    100%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1);}
+  .mascot-wrap.land{animation:mascotLand 1.1s cubic-bezier(.16,.9,.28,1) forwards;}
+  @keyframes mascotLand{
+    0%{opacity:0;transform:translateY(-180px) scale(.7) rotate(-6deg);}
+    55%{opacity:1;transform:translateY(4px) scale(1.03) rotate(1deg);}
+    68%{transform:translateY(-6px) scale(0.99) rotate(-1deg);}
+    82%{transform:translateY(2px) scale(1.01) rotate(0.5deg);}
+    100%{opacity:1;transform:translateY(0) scale(1) rotate(0deg);}
   }
-  .mascot-wrap.fade-out{animation:mascotFade .55s ease forwards;}
-  @keyframes mascotFade{to{opacity:0;transform:translateY(-8px) scale(.92);}}
-  .mascot-figure{width:74px;height:74px;filter:drop-shadow(0 8px 14px rgba(19,27,46,0.25));}
+  .mascot-wrap.fade-out{animation:mascotFade .5s ease forwards;}
+  @keyframes mascotFade{to{opacity:0;transform:translateY(-10px) scale(.9);}}
+  .mascot-figure{width:116px;height:116px;filter:drop-shadow(0 10px 16px rgba(19,27,46,0.28));position:relative;z-index:2;}
+
+  .impact-ring{opacity:0;transform-origin:60px 108px;}
+  .mascot-wrap.land .impact-ring{animation:ringPulse .6s ease-out forwards;animation-delay:.58s;}
+  .mascot-wrap.land .ring2{animation-delay:.68s;}
+  @keyframes ringPulse{
+    0%{opacity:.7;transform:scale(0.3);}
+    100%{opacity:0;transform:scale(1.8);}
+  }
+
   .mascot-bubble{
-    background:#fff;border:1.5px solid var(--line);border-radius:13px 13px 3px 13px;
-    padding:7px 12px;font-size:11.5px;font-weight:600;color:var(--ink);
-    box-shadow:0 10px 22px -12px rgba(19,27,46,0.35);margin:-4px 10px 0 0;white-space:nowrap;
+    background:#fff;border:1.5px solid var(--line);border-radius:13px 13px 13px 3px;
+    padding:7px 13px;font-size:12px;font-weight:600;color:var(--ink);
+    box-shadow:0 10px 22px -12px rgba(19,27,46,0.35);margin-top:2px;white-space:nowrap;
+    opacity:0;transform:translateY(-6px) scale(.9);transition:opacity .35s ease, transform .35s ease;
+  }
+  .mascot-bubble.show{opacity:1;transform:translateY(0) scale(1);}
+
+  .pre-anim{opacity:0;}
+  .search-wrap.present-in{animation:presentFromRight .5s ease forwards;}
+  @keyframes presentFromRight{
+    0%{opacity:0;transform:translate(46px,-14px) scale(.88);}
+    100%{opacity:1;transform:translate(0,0) scale(1);}
+  }
+  .cat-nav.present-in{animation:presentFromLeft .5s ease forwards;}
+  @keyframes presentFromLeft{
+    0%{opacity:0;transform:translate(-46px,-14px) scale(.88);}
+    100%{opacity:1;transform:translate(0,0) scale(1);}
   }
 
   /* SEARCH HIGHLIGHT */
@@ -260,7 +294,7 @@
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABgCAYAAACKa/UAAAAVBklEQVR42u1ca5QkZXl+nq+6p2d2Z7qqehnWleUaYYGAgMJKhOAilywiKoqCysZwRFGRGMzBI0YFjBGSA4pENAurBiWKXIKAgCRcAgIRUS4CIsEbZHFZZmeqq3d2Zqq763vyo6q7q4e9zKVnZjmZ90yf7dPbXZen3uvzvt8HzMu8zMu8zMu8zMu8zMu8zMukhbN4LrNo0aKFURQVCoVClyQTx3EOAI0xcRRFNWNM3RgT5/P5Wk9PT33t2rU1APX/dwAWi8WSpL1z5P6W3IfkEkl9JLskdZE0gCDBpj9xSHUD7JNQAECSEYCNEEZAjFhrQ5IbjEFgLYaM0UZrOQhgg6RhSRvz+fxwtVqNurq6qn19Q9XnnoMFEKev7RtA13V9SccZg3dL/FMAowSeEvAIyV8DeJ5kUKvVxhzHqTmOY/P5fGyt5djYWCGXyy2U5FtrFzsO9rCWe5PcR9IykruQYPZyJTXexoDqAGoARyWNkawCigBQwk1hGJ47UwDmpnuAvr6+vUh+GNDJTJ70tcaYS3K53GMDAwPDEzzMMIBBAM+P/w/f9904jpeRPILEMQCWk/BSGONECZgn0QWwtwGxQBCAlf31dmnC/f39vVEUnWUMPyPBAXBxvV6/fNOmTetn8oJLvb37xI7zXpKnAtgdgABZkKBa37MSSDrW2n+vVCrvmqnrcaZorgfFcXyt4zgfIPUQwHeFYXhNrVbbNNNOe7Ra3RBF0T2O43w/lzOxhAMN2Z0ACRCCGppBGkpPj0XRtTMWGSf7A8/zVhnDO43hGyRd3N29YGW5XH58tqPfpk2bXgqC8FwAKwTcScIBRIEpjCmIhvFMXoeZJHgfJ/EtgCUJny2Xy+esW7duZC7TiDAMH3Fd9wQJlwI0kAgBZKKSEmJsD+L19a3yPK/q+548r3jF9piTua57vu958jwvdl237nmeXNf93pxrYLFYXA7HuYxEXtIzcaxzt0cAwzA8H9JFAAyZxmJO3k11GsAeEpcB8CTAWl26cePGwe21MgjC8HOAvbEVIOnMKYDFYvE0gm8AJEkv1ev1m7bz8rRuLc6R8BJpphQoOwbgwoULFxvgnCS9IgE8NjIysm57L/ArlcpvjcHFiRnPLIBbrUSMMafAcDeCcVqvPjGFc3QXi8UFcRznSFpjjLXWGkkmm8xLIkmRjB3Hiev1er67uzsnyUhiej1xFEW1QqEwNjg4OLK1Gpd0VsvaM0TNGYBdxpj3tdeffGGyJ/B9v1BFdacux9lXMscAOIqkA8BJkjU1tJtpVREDiPJ55744jh9Nwc0BkOK4ms/n43q93ue6rsckgX7ccZy7BgcH/5g979DQUMXzvMtgcfScAOj7/jJr7f6QBAIkYa26J+3UgyAE8MQm4IklS5bcMjYychaIf2g4eaUPKDE3puext/SWK2euBUa3WNKVSsU4jpcDWBXH8QW+7//EWntpGIaPZgiHW0juPpMAbjFCFQqFt5J8FwhLphYE/M9YFN061ZMNDw/XxqLoge7uwi4AXyciJiACSvVQBCngnwai6OGtlnSjo1EURb+LouiHhULhSRAfJXh2oVDIe5738KZNm2pRFG0sFApRFEV/mPUgQuAQMtGJBnMkcp9OUGASrwFgm/wUW8dMgOSk0qQwDO/K56p/DuBBY8x5URT9qFgsvgZAHIbhfY06eVYBFLALhLQ0ByQIsAe6rjttk4jj+I8SxqQWgcKGDSf/X53sMQcGRl6sVvPvB+wTxpgVxphbPc87ADPMaG8tQvVmVQaSJYxH6n3TPqkxUUqCJr5P4yMo7VSOOzIy8CJgPiJrN5LcC8B1qSbOOoA0JjWr1DmRjVvlWb7v7zctEpIUlDChTeYzfUMAjjTl6iEIggcFXJk+nD0dh99cvHjxwqkcq6+vb9G2KD+zRTdlMdJwhg2OTZAI7ijZb6cHnwaKL3vTIPQgx5lW7mat/TqgcnqLR0TR6OenlKLkcsv7+/t7puoDB8AmM5n5XDHBgx1jri4Wi6WpBRG1NI/KHl9pr2NagapSqfwWVrdCgCQL8BOu666YwnWuiuN4l6n6wF8CADW+ywACiEGuJHGj67q7TVED1a6BbKlgJyK9tT8QGk+DBQBfANA1Ce7ztYDeFsfxCVMC0HGc+yDUEx0R0j8g5SsB2LTRc5fr9p44SR9oyUZLU60okvrCTJk3dUZB+imAPxIwSq71cM/zVk7w5wVAF5NcSOJvtubzt3ihQ0NDv4T0q6Y2pJV5wyem924B7EE613med6Xv+7tMGEAYNbVOGB+Kp62Bw8PDAxCeTKooKGmL4gPb+l2pVFrqee5VJI9Jam2+SrLX+37vYZM14VGRq9u7sc2w3LxhJQ0wA+B0a+0Drut+0nVdb6JhpHmUmUh1qSfblVxHlEo9O42v+X3f38V13SNd1/1SHNcfJHlyphUQk1wm5X7sed6Vntd3QpoLd2+T6ikUCldJ+m+QhhkglXGJbHgvyZJYSvISkg95nveJ3t7eHbYQJXOSnJZfZVPDmdTDtiP4Eb9JAwkEWQA7xHHX8ux3Fi9enI/j+FWkDgX0FkOzM0EYtjlpawx7AbxdMisB7Oa67rYBXL9+/SYJHwOwAYBpaaPY6tpk/T4tAAthLxKX5nK5n5U877xisfgn46KbkxAZTGqczJNJL7ojAErmBTVrKSgNgq8bf4+VSuVn5XLlwjCsHArxQ4JeEuAwTYGTZ64v53LVA8IwPDMMw3vCMCxPiGwMw/Axa/VhCCMQTKojas5WsAVikpUIoGw697K7iPONMQ+5rvvPrusemB52EOTzJABDBxlnmECqfGc0kAGA2DC1n4RV2mcrPxkLwmBNHNsTJK1r4GOtzimXy3+7YcPLyeQJRbswDG+k9Jcgh5Dy5MjadGqIwjhqL/GPlsQiY/hxEg94nnuH4zjHkzzJUidBuo5UhaRh49gd8ohpTR2rPZN99bbuu1Kp/EzS3wEkrG4Ow/DSKVH6bVE5DG+I43gloMcSFyFmnHWLdKASQioFMXnfAJILAB5L4CrJ3kSrwyR8w1quAPhRAP8paMQY05Fecy5hsluZrAQIfQC2qeFdXV3XSfaZWLp8yj2RzTyZh2u1+rEUVgOsEzQZ75+wemLT25DJ+8Talfo2WSU+bg/AnE3iThJrYG0R5CclHAbgpx3xgblcPu3KKcOaORNJkwYGBoYp8+04jn85JUJ1S1KtVkdGx8Z+VCgU7ie5lMAeCY/McdQKM/9wMxkMRSidIeCrQR4j2VNJLjNSsXvBguGxsbGB6QDYk8/vR2NWqeVdDIl1Y2PRFZjAzGC+K79heHj4xa32Xqb5kPO+758k2bNJHpJUKVbtPoxNMgJtUWf8ZShlfEhKsNCIhIdJXSvx9jAMfz/Zi3Nd9zRDfktQnLYLHMDeGwThkRP0s2ZbGcF0S6ZaEATfL5fDIwB7MmjvBWgT006PrUZs5RaeXZsHECSbEhY9xvBNpLnckD/3PO8G13Xf0d/f3zuJKLy0YQGtKzBrJxGktplOdaprXx8bi54aG4u+293d/V+ArQN8NcA+EMxmPOR4FrVBNKaRnBnDTxJqIalJ9wF4irX2HQu6u/foWbCgMjo6+sI2CoHTSR7AdMaDgJF0w9jY2L0dK3ZmiqktlUo7xXF8SjIIqQMzVaBtN22m99fAWe2pUStbktKhyVRfIwkPULqGjnP70NDQ2peVaJ53P4hDINbTyGbi2B5XqVTu2O4BbMiuu+7aXalUVkj2REnHkdw500Wy2URcapC33FJplvZmmhWCSUu19SBvk3R1GIb3A6j6vr8zgScEuJBiEI6A38nq9Y0q4hUBYFuTpbe33xhztDE8EcAK0vSDSZVKyLYxjlKbo2KriESDT8vEe5N+YAU8DOA7xpibgfhQCWcBfCNpcrL2W0G5/MGO8hWYI/F9fz9ae7CMOVGyK0gWW9RMooSbM+nm52qhSLI9MCafPwvpX2LpJsdxlkg6i+RVQRDc9ooH0HXd3Uj+AMC9AG611o6QPJzkuwEdRLI7balaNjn/rGln5qBbvrTN/BtzgZLWU7gSxlwRBMH/dpwxmyMAdyfxFMkeCTGpX8HiRhh7B8m6teYoQCcC2D+df0nNU03FaycxmqPlTb1t6mwLyHWk+VeSlw8NDb3wSgdwDwCPGLIoSoRJb9KOgHyA4OlBELxYKpVeZ609DdDbCS5OWgsEmHjNdpI3i18rMVKTRU/zUqvnLfDFMAy/jQ403ecMQAKPgiwSiBsGmZodrdXRYRjelaXZVa8fL4NTJL7RkF0t3lDjbmgz/Hkm4ggyqcb+mDTnBEHw5HTuxWCORC1f1kitmU6SyBn3YIeGhtYGlcrqcrnyZkmHC/gKgD+QMAQNlG3TZF/K0GyNnJJWgEiulHS353nvn2sAJ63F6cAkW72BVkQQwPqWu3KqVCoPl8vlT9br9eWSPVPSQ2kfwDTmJ5i9tOaTQXtNmfCU/SSuKpW8z77SNJBtgWBcd85xtv1QhoeHB8rlytfLYfjnAN8O6M40oJjsQ9W43DFDEDGtdR2Jf+953ufnCkBNHr3EjJoVuzKdCxCSmQylXyuXyzfX6/F7EdtTrHS7MkGDaku8BWbCdKqJgETiPM/zTn2laKBa3ShmW85K30+W5Mg5jrPGkmdKWkPYUyU9ScIgeTXmDhsOo4mh0gltAIbAJTvs0LfXTABYmLlQos250kl15VzXPY3E2xzHHEHyAmPytxjHOUyx/QykDY1STxLY0j817DuN3JaGO8Zx7qLJKNaEvtjb23twB6mvlndvsthsy3wn0xd2XXcFgQtJUla/NsacPDg4uHFoaKhSrlQuBM2REu5J7lXUeMfDZOYscR0QgBM8zzusowAaY/Z3XbfYMb2TxpWvLa5rkpr3egJX03CRhF/E1p4wNDT0q+x3giB4sre393hZXcRkVMq0khxlVTE1ZeUA/FWnAdzTWrusw9bb8kjNJG7zgzJbAO8gUtfTcCcJP6xWq2+tVCq/2dx3165dOxqG4blWOkPSpqR9Oo4lV1t+uqJUKhU76ANt0XH45hnxfpkkUBMM6K7rriBxG2CWWqsLyuXye0ZGRl7c1u/CMFwj4AOSRtOgkSSejTO3Up2d4zjes2MASowlvAeTmK+bwFGZLNZvzYeQ1LbmA13X/RDB20gMSDo2DMPzAdQmetYwDG8A+BEA1dZ4GNsvjMwD2LmTUbhO8oBisbiiQz7QvLyO0fhK5WXMtud5XybxNRpdaS3eFIbhPVM5f7lc/o6VLuT4wpnNYggA/E4CSIJwHH688wRE0lUGOY5AbYnnea8Nw/BWSG+Q8JYgCD8RhmEwnbOGYfiPsvopQKNMLtridCe2o8mEAUxiFFf6vr+yU8Al0/+tyddMZG5cV8H3i58mdTWAm8theGSWpZmmjNKYL4Kot2mibCNwbuwogKnbz1trz1+6dGnP9ArhtF2Z/jFL5aUdUM/zXut57ncls2cup3eWy+WvAqh2UveDIPgPCY+11SNJghUDmBB7nZs4gACSac3lw8PDnwJwwfQZhdZKucZ+GymEHwHwHGkuDYLgwRksKWtI2goHK50ySSeYh4xjft9hDWyS5QLw6WKxeOw0KTAmk6O2mUKk7CAB/KRcLp85w+A15PHs6FEK4VODg4MvdhJANYZvUwC7jeE307VoU6pE2mtgZffCAsnHgNnZrsRY+2KblSWqcvtE6/EJA9jKzpIxNZJLAf1g/PjuRJkJIhN11Xr+UnOB9axITFo1GS4aa7WxXrc3drSUS2mh8Zhagssc8oYddthhUhRQnLNdIJx0OS1aK5bah+Jmh9nlkmQ4tmkS/7Zx48ZnO0xnbab0TwqJGOQB9Xr9lkXF4iETOVKxWDxYyn+eYK7VQ2N7vJdmk6d8fQOLdC76ohkkVNXmKpIF5rAk9oqN+ZHv+8dvhRLr9zzvr0keLmk1pBEwXQPK1nSBNKsaWCC5opERkPYL5XL5uc4DaJPuYatSUKaF0Rzd3VGy17muez6ABdlUqVQq7ZvP548ieXc6sP17scUvZldLzGaf1ff9o0nsn+4HcW0QVNZMOghNJo1pqgvSBQpJGWTUWv7QY8jzXNe9o1gsLU81z89F0WAQBNc0erCSHKi9cuPmWKUZlEWLFvVJ+hwAx1r7YBzHH8MUGu0TA9AYky66RrocgYDWCXoYwF2k7gfwjJVCAHCMOdxx7D2+738JAF4atykjyZiAzdDr2QmC2QDQxHH85XQLv18YY06e6nZWE9VA09gFSMI9pH13V1fhoHI5/LNyuXx0EIRH5PP5g621h4B8v5WuBzBG4tx83vm57/sfxr7jqDCT2fKkrTUy80bsed5FxpjTYfWgtTppM8OZE5YJ5VukjMSatfZTYRh+bTOqrnS/1GfT1/c8z9tV0tsAriKx2l/nnwEflwRBcH2tVhstFLrEZq9xfKCaMZ/nQrqEhh+01q6W9OnpDltygif+OoAngiD4xhTOkfc8740EVgk6DuDzpO6GxZkiikhX7CgZpgYIY63eGYbhjZ31ee5R1pqvACjS2rOHOnT83ARd4FcHBwefmWrBXi6X7wVw78LFC3fMjeXeSnIViD60sfi2OWjuOJ3rAJZKpX0lnWst/sJa+71arXbRROj/jmpgp6W/v/81tVrtcRILkAwmtHisZJPuM4IgvGIaoO0k1Q8DeALAvSXcZ4xZMzQ09HTHK5m5ALBYLL7GGPMoid7WbubKMq2/NQaPSHya5JMAnq/X64NxHA93dXWNdXV11a21jKKoK5fLLbDWlgDsBmA/SfsC8EisJc3dtVrt7uHh4Q0zdS85zJk0GtoN1NgYv6CkyyQ+KmlXUXsamEMdx+k2xuQomSiKACB2HKcuyRqDqqT11uIZALd1d3c/u379+k2zcRe5OUMvkzMnbHSykC1ZDYPnB4PgfgD3bybtyi9ZssRZ19Vl8dxztc3RXmEYztqNzAmAZIZ6SanB1qgCIcMttU8tgGjduu1nE805mc6y1joATIuGy8yGS5DiA/AKkTkBMJfLLSbZk2z5mVp0Oj0lSRJPLxaLB78SAHRm03IB5HzfXwrYL5Jm73Q0Om1upnuPETSGvaQ5qaenx3R3d1fy+Xy9Wq0qNWFtTwDOZhrTXSqV9rDWHkRqGWDSrU9AwIp0YsDGgHEkGZJ1klVJL0laF8fx+lwu93S6pei8zMu8zMu8bAfyfzbbJa13ECKmAAAAAElFTkSuQmCC" alt="Studro logo">
         <span class="logo-text">Toolkit</span>
       </div>
-      <div class="tool-count">5 live · 2 coming</div>
+      <div class="tool-count">6 live · 2 coming</div>
     </div>
   </header>
 
@@ -278,32 +312,44 @@
 
   <div class="shell">
     <div class="mascot-wrap" id="mascotWrap">
-      <div class="mascot-bubble">Everything you need — right below! ✨</div>
-      <svg class="mascot-figure" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <path d="M30 55 Q10 70 20 90 Q35 78 40 60 Z" fill="#0E4A47"/>
-        <ellipse cx="50" cy="63" rx="15" ry="19" fill="#131B2E"/>
-        <path d="M64 58 Q78 50 82 38" stroke="#131B2E" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <path d="M82 30 l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1z" fill="#C9A961"/>
-        <path d="M36 58 Q26 66 28 76" stroke="#131B2E" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <circle cx="50" cy="34" r="19" fill="#FBD9B0"/>
-        <path d="M31 30 Q33 11 50 13 Q69 11 69 30 Q59 20 50 22 Q41 20 31 30Z" fill="#131B2E"/>
-        <circle cx="43" cy="35" r="3" fill="#131B2E"/>
-        <circle cx="58" cy="35" r="3" fill="#131B2E"/>
-        <circle cx="44" cy="34" r="1" fill="#fff"/>
-        <circle cx="59" cy="34" r="1" fill="#fff"/>
-        <circle cx="38" cy="41" r="3" fill="#FF9E8A" opacity="0.55"/>
-        <circle cx="62" cy="41" r="3" fill="#FF9E8A" opacity="0.55"/>
-        <path d="M45 43 Q50 47 55 43" stroke="#131B2E" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <div class="mascot-bubble" id="mascotBubble">Here's everything you need! 👋</div>
+      <svg class="mascot-figure" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <ellipse class="impact-ring ring1" cx="60" cy="108" rx="10" ry="4" fill="none" stroke="#C9A961" stroke-width="2.4"/>
+        <ellipse class="impact-ring ring2" cx="60" cy="108" rx="10" ry="4" fill="none" stroke="#C9A961" stroke-width="2.4"/>
+
+        <path d="M40 60 Q15 55 10 80 Q30 85 45 68 Z" fill="#0E4A47"/>
+        <path d="M80 60 Q105 55 110 80 Q90 85 75 68 Z" fill="#0E4A47" opacity="0.85"/>
+
+        <path d="M50 85 Q45 100 38 108" stroke="#131B2E" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <path d="M68 85 Q78 98 82 106" stroke="#131B2E" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+        <ellipse cx="60" cy="72" rx="17" ry="20" fill="#131B2E"/>
+
+        <path d="M74 68 Q95 62 105 70" stroke="#131B2E" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <circle cx="106" cy="71" r="5.5" fill="#FBD9B0"/>
+
+        <path d="M46 66 Q30 55 38 40" stroke="#131B2E" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <circle cx="38" cy="39" r="5.5" fill="#FBD9B0"/>
+
+        <circle cx="60" cy="42" r="22" fill="#FBD9B0"/>
+        <path d="M39 38 Q41 17 60 19 Q81 17 81 38 Q69 26 60 28 Q51 26 39 38Z" fill="#131B2E"/>
+
+        <path d="M50 43 l7 -2" stroke="#131B2E" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M63 41 l7 2" stroke="#131B2E" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="52" cy="45" r="2.8" fill="#131B2E"/>
+        <circle cx="68" cy="45" r="2.8" fill="#131B2E"/>
+
+        <path d="M54 53 Q60 57 67 52" stroke="#131B2E" stroke-width="1.8" fill="none" stroke-linecap="round"/>
       </svg>
     </div>
 
-    <div class="search-wrap">
+    <div class="search-wrap pre-anim" id="searchWrap">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#5C6470" stroke-width="1.8"/><path d="M21 21l-4.3-4.3" stroke="#5C6470" stroke-width="1.8" stroke-linecap="round"/></svg>
       <input type="text" id="toolSearch" placeholder="Search tools — e.g. image, pdf, word...">
     </div>
     <div class="no-results" id="noResults">No tool matches that search yet.</div>
 
-    <div class="cat-nav">
+    <div class="cat-nav pre-anim" id="catNav">
       <button class="cat-pill" data-target="cat-images">Images</button>
       <button class="cat-pill" data-target="cat-text">Text</button>
       <button class="cat-pill" data-target="cat-pdf">PDF</button>
@@ -370,7 +416,13 @@
       <button class="primary" id="enhanceBtn" disabled>Enhance image</button>
 
       <div class="result" id="enhResult">
-        <img id="previewEnh" alt="Enhanced preview">
+        <div class="compare-wrap" id="compareWrap">
+          <img id="previewOrigEnh" class="compare-img compare-before" alt="Original">
+          <img id="previewEnh" class="compare-img compare-after" alt="Enhanced">
+          <div class="compare-handle" id="compareHandle"></div>
+        </div>
+        <input type="range" id="compareSlider" class="compare-slider" min="0" max="100" value="50">
+        <div class="compare-labels"><span>Before</span><span>After</span></div>
         <div class="meta" id="enhMeta"></div>
         <a class="dl" id="downloadEnh" download="enhanced.jpg">Download</a>
         <div class="dl-note">Button not saving? Long-press the image above and choose "Download image".</div>
@@ -448,11 +500,56 @@
 
     <div class="category-section" id="cat-utility">
       <div class="section-label">Utilities</div>
+
+      <div class="tool-card tool-item" data-name="qr generator code scan barcode link url wifi text">
+        <div class="tool-head">
+          <div class="icon-chip amber2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="#B8860B" stroke-width="1.8"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="#B8860B" stroke-width="1.8"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="#B8860B" stroke-width="1.8"/><path d="M14 14h3v3h-3zM19 14h2v2h-2zM14 19h2v2h-2zM19 19h2v2h-2z" fill="#B8860B"/></svg></div>
+          <h3>QR Code Generator</h3>
+        </div>
+        <div class="desc">Turn any link or text into a scannable QR code, instantly.</div>
+
+        <div class="field">
+          <label>TEXT OR LINK</label>
+          <input type="text" id="qrInput" placeholder="https://example.com" style="width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;font-size:14px;background:var(--bg);color:var(--ink);">
+        </div>
+
+        <button class="primary" id="qrBtn" disabled>Generate QR code</button>
+
+        <div class="result" id="qrResult">
+          <div id="qrCanvasWrap" style="display:flex;justify-content:center;padding:14px;background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;"></div>
+          <a class="dl" id="downloadQr" download="qrcode.png">Download PNG</a>
+        </div>
+      </div>
+
       <div class="soon-grid">
         <div class="soon c2 tool-item" data-name="unit converter measurement convert length weight temperature"><h4>Unit Converter</h4><span>BUILDING</span></div>
-        <div class="soon c3 tool-item" data-name="qr generator code scan barcode"><h4>QR Generator</h4><span>PLANNED</span></div>
         <div class="soon c4 tool-item" data-name="color picker hex code palette rgb"><h4>Color Picker</h4><span>PLANNED</span></div>
       </div>
+    </div>
+
+    <div class="tool-card" id="feedbackCard" style="margin-top:4px;">
+      <div class="tool-head">
+        <div class="icon-chip mint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#00A896" stroke-width="1.8"/><path d="M4 6l8 7 8-7" stroke="#00A896" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Suggest a Tool or Send Feedback</h3>
+      </div>
+      <div class="desc">Want a new tool? Found a problem? Tell us in simple words below.</div>
+
+      <div class="field">
+        <label>WHAT IS THIS ABOUT?</label>
+        <select id="fbType" style="width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;font-size:14px;background:var(--bg);color:var(--ink);">
+          <option value="New tool idea">I want a new tool</option>
+          <option value="Something is not working">Something is not working</option>
+          <option value="Other feedback">Other feedback</option>
+        </select>
+      </div>
+
+      <div class="field" style="margin-top:12px;">
+        <label>YOUR MESSAGE</label>
+        <textarea id="fbMessage" placeholder="Example: Please add a video downloader tool." style="width:100%;min-height:90px;padding:12px;border:1.5px solid var(--line);border-radius:10px;font-size:14.5px;background:var(--bg);color:var(--ink);resize:vertical;"></textarea>
+      </div>
+
+      <button class="primary" id="fbSendBtn">Send Feedback</button>
+      <div class="dl-note" id="fbNote">This will open your email app. Just tap send.</div>
     </div>
   </div>
 
@@ -461,7 +558,38 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
+  // --- SMART DOWNLOAD (works inside WhatsApp/Instagram in-app browsers too) ---
+  function wireSmartDownload(linkEl) {
+    linkEl.addEventListener('click', async (e) => {
+      const blob = linkEl._pendingBlob;
+      if (!blob) return; // nothing ready yet, let default happen
+      const filename = linkEl.getAttribute('download') || 'download';
+      let file;
+      try {
+        file = new File([blob], filename, { type: blob.type || 'application/octet-stream' });
+      } catch (err) {
+        return; // very old browser, let default <a download> handle it
+      }
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        e.preventDefault();
+        try {
+          await navigator.share({ files: [file] });
+        } catch (shareErr) {
+          // user cancelled, or share failed — fall back to a direct download
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }
+      }
+      // else: no Share API — let the normal <a download> click proceed as-is
+    });
+  }
+
   const drop = document.getElementById('drop');
   const dropText = document.getElementById('dropText');
   const fileInput = document.getElementById('fileInput');
@@ -473,6 +601,7 @@
   const preview = document.getElementById('preview');
   const imgMeta = document.getElementById('imgMeta');
   const downloadImg = document.getElementById('downloadImg');
+  wireSmartDownload(downloadImg);
 
   let srcImage = null;
   let origW = 0, origH = 0;
@@ -531,6 +660,7 @@
             preview.src = blobUrl;
             imgMeta.textContent = w + ' × ' + h + ' px';
             downloadImg.href = blobUrl;
+            downloadImg._pendingBlob = blob;
             downloadImg.setAttribute('download', 'resized-' + w + 'x' + h + '.jpg');
             imgResult.style.display = 'block';
           }
@@ -629,6 +759,7 @@
   const pdfResult = document.getElementById('pdfResult');
   const pdfMeta = document.getElementById('pdfMeta');
   const downloadPdf = document.getElementById('downloadPdf');
+  wireSmartDownload(downloadPdf);
   let selectedPdfFiles = [];
 
   fileInputPdf.addEventListener('change', (e) => {
@@ -660,6 +791,7 @@
       const url = URL.createObjectURL(blob);
       pdfMeta.textContent = selectedPdfFiles.length + ' files merged — ' + mergedPdf.getPageCount() + ' pages total';
       downloadPdf.href = url;
+      downloadPdf._pendingBlob = blob;
       downloadPdf.setAttribute('download', 'merged.pdf');
       pdfResult.style.display = 'block';
     } catch (err) {
@@ -683,8 +815,18 @@
   const enhanceBtn = document.getElementById('enhanceBtn');
   const enhResult = document.getElementById('enhResult');
   const previewEnh = document.getElementById('previewEnh');
+  const previewOrigEnh = document.getElementById('previewOrigEnh');
+  const compareSlider = document.getElementById('compareSlider');
+  const compareHandle = document.getElementById('compareHandle');
   const enhMeta = document.getElementById('enhMeta');
   const downloadEnh = document.getElementById('downloadEnh');
+  wireSmartDownload(downloadEnh);
+
+  compareSlider.addEventListener('input', () => {
+    const val = compareSlider.value;
+    previewEnh.style.clipPath = 'inset(0 ' + (100 - val) + '% 0 0)';
+    compareHandle.style.left = val + '%';
+  });
 
   let srcImageEnh = null;
   let origWEnh = 0, origHEnh = 0;
@@ -697,6 +839,7 @@
     img.onload = () => {
       srcImageEnh = img;
       origWEnh = img.width; origHEnh = img.height;
+      previewOrigEnh.src = img.src;
       dropTextEnh.textContent = file.name + ' — tap to change';
       dropEnh.classList.add('active');
       enhanceBtn.disabled = false;
@@ -710,7 +853,8 @@
     img.src = URL.createObjectURL(file);
   });
 
-  function sharpenImageData(imageData) {
+  function sharpenImageData(imageData, amount) {
+    amount = amount === undefined ? 0.65 : amount;
     const w = imageData.width, h = imageData.height;
     const src = imageData.data;
     const out = new Uint8ClampedArray(src.length);
@@ -730,7 +874,9 @@
               sum += src[nIdx] * kernel[k]; k++;
             }
           }
-          out[idx + c] = sum;
+          // blend the sharpened result with the original (unsharp-mask style)
+          // — crisper than a raw convolution, without harsh haloing artifacts
+          out[idx + c] = src[idx + c] * (1 - amount) + sum * amount;
         }
         out[idx + 3] = src[idx + 3];
       }
@@ -764,7 +910,7 @@
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
         if (colorChk.checked) {
-          ctx.filter = 'contrast(112%) saturate(118%) brightness(103%)';
+          ctx.filter = 'contrast(118%) saturate(124%) brightness(104%)';
         }
         ctx.drawImage(srcImageEnh, 0, 0, targetW, targetH);
         ctx.filter = 'none';
@@ -782,8 +928,12 @@
           } else {
             const blobUrl = URL.createObjectURL(blob);
             previewEnh.src = blobUrl;
+            previewEnh.style.clipPath = 'inset(0 50% 0 0)';
+            compareSlider.value = 50;
+            compareHandle.style.left = '50%';
             enhMeta.textContent = targetW + ' × ' + targetH + ' px';
             downloadEnh.href = blobUrl;
+            downloadEnh._pendingBlob = blob;
             downloadEnh.setAttribute('download', 'enhanced-' + targetW + 'x' + targetH + '.jpg');
             enhResult.style.display = 'block';
           }
@@ -800,6 +950,87 @@
     }, 30);
   });
 
+  // --- FEEDBACK FORM ---
+  const fbType = document.getElementById('fbType');
+  const fbMessage = document.getElementById('fbMessage');
+  const fbSendBtn = document.getElementById('fbSendBtn');
+  const fbNote = document.getElementById('fbNote');
+
+  fbSendBtn.addEventListener('click', () => {
+    const msg = fbMessage.value.trim();
+    if (!msg) {
+      fbNote.textContent = 'Please write a message first.';
+      fbNote.style.color = 'var(--coral)';
+      fbMessage.focus();
+      return;
+    }
+    fbNote.textContent = 'This will open your email app. Just tap send.';
+    fbNote.style.color = '';
+
+    const subject = encodeURIComponent('Toolkit Feedback: ' + fbType.value);
+    const body = encodeURIComponent(msg + '\n\n— sent from the Toolkit website');
+    window.location.href = 'mailto:doctorearn12@gmail.com?subject=' + subject + '&body=' + body;
+  });
+
+  // --- QR CODE GENERATOR ---
+  const qrInput = document.getElementById('qrInput');
+  const qrBtn = document.getElementById('qrBtn');
+  const qrResult = document.getElementById('qrResult');
+  const qrCanvasWrap = document.getElementById('qrCanvasWrap');
+  const downloadQr = document.getElementById('downloadQr');
+  wireSmartDownload(downloadQr);
+
+  qrInput.addEventListener('input', () => {
+    qrBtn.disabled = qrInput.value.trim().length === 0;
+  });
+
+  qrBtn.addEventListener('click', () => {
+    const text = qrInput.value.trim();
+    if (!text) return;
+    qrBtn.disabled = true;
+    qrBtn.textContent = 'Generating...';
+
+    try {
+      if (typeof QRCode === 'undefined') throw new Error('qrcode-lib-not-loaded');
+      qrCanvasWrap.innerHTML = '';
+      new QRCode(qrCanvasWrap, {
+        text: text,
+        width: 220,
+        height: 220,
+        correctLevel: QRCode.CorrectLevel.M
+      });
+
+      // qrcodejs renders async-ish onto a canvas inside the wrapper; grab it next tick
+      setTimeout(() => {
+        const canvas = qrCanvasWrap.querySelector('canvas');
+        if (canvas) {
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const url = URL.createObjectURL(blob);
+              downloadQr.href = url;
+              downloadQr._pendingBlob = blob;
+              downloadQr.setAttribute('download', 'qrcode.png');
+            }
+            qrResult.style.display = 'block';
+            qrBtn.disabled = false;
+            qrBtn.textContent = 'Generate QR code';
+          });
+        } else {
+          // fallback: some browsers render an <img> instead of <canvas>
+          qrResult.style.display = 'block';
+          qrBtn.disabled = false;
+          qrBtn.textContent = 'Generate QR code';
+        }
+      }, 60);
+    } catch (err) {
+      qrCanvasWrap.innerHTML = '<div style="font-size:12.5px;color:var(--ink-soft);padding:10px;text-align:center;">Could not load the QR engine — check your internet connection and try again.</div>';
+      qrResult.style.display = 'block';
+      qrBtn.disabled = false;
+      qrBtn.textContent = 'Generate QR code';
+      console.error(err);
+    }
+  });
+
   // --- BACKGROUND REMOVER ---
   const dropBg = document.getElementById('dropBg');
   const dropTextBg = document.getElementById('dropTextBg');
@@ -809,6 +1040,7 @@
   const previewBg = document.getElementById('previewBg');
   const bgMeta = document.getElementById('bgMeta');
   const downloadBg = document.getElementById('downloadBg');
+  wireSmartDownload(downloadBg);
 
   let srcFileBg = null;
   let removeBackgroundFn = null; // cached after first dynamic import
@@ -852,22 +1084,35 @@
 
     try {
       if (!removeBackgroundFn) {
-        const mod = await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm');
-        removeBackgroundFn = mod.default;
+        removeBgBtn.textContent = 'Loading AI engine...';
+        const mod = await import('https://unpkg.com/@imgly/background-removal@1.7.0/dist/browser.js');
+        removeBackgroundFn = mod.default || mod.removeBackground;
+        if (typeof removeBackgroundFn !== 'function') throw new Error('bg-removal-lib-shape-unexpected');
       }
 
       removeBgBtn.textContent = 'Removing background...';
       const smallBlob = await downscaleForBg(srcFileBg, 1024);
-      const resultBlob = await removeBackgroundFn(smallBlob);
+
+      const timeoutMs = 30000;
+      const resultBlob = await Promise.race([
+        removeBackgroundFn(smallBlob),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('bg-removal-timeout')), timeoutMs))
+      ]);
 
       const url = URL.createObjectURL(resultBlob);
       previewBg.src = url;
       bgMeta.textContent = 'Background removed — transparent PNG ready';
       downloadBg.href = url;
+      downloadBg._pendingBlob = resultBlob;
       downloadBg.setAttribute('download', 'no-background.png');
       bgResult.style.display = 'block';
     } catch (err) {
-      bgMeta.textContent = 'Something went wrong. Try a smaller or clearer photo, or check your internet connection (the AI model needs to download once).';
+      const msg = (err && err.message) || '';
+      if (msg === 'bg-removal-timeout') {
+        bgMeta.textContent = 'This is taking too long — try a smaller photo or a faster internet connection.';
+      } else {
+        bgMeta.textContent = 'Something went wrong. Try a smaller or clearer photo, or check your internet connection (the AI model needs to download once).';
+      }
       bgResult.style.display = 'block';
       console.error(err);
     }
@@ -908,12 +1153,41 @@
       mainApp.style.display = 'block';
 
       const mascotWrap = document.getElementById('mascotWrap');
-      if (mascotWrap) {
-        requestAnimationFrame(() => mascotWrap.classList.add('fly-in'));
-        setTimeout(() => {
-          mascotWrap.classList.add('fade-out');
-          setTimeout(() => { mascotWrap.style.display = 'none'; }, 600);
-        }, 3600);
+      const mascotBubble = document.getElementById('mascotBubble');
+      const searchWrap = document.getElementById('searchWrap');
+      const catNav = document.getElementById('catNav');
+
+      // Safety net: no matter what happens with the animation, make sure
+      // the search bar and category nav are visible and usable.
+      const forceReveal = () => {
+        if (searchWrap) { searchWrap.classList.remove('pre-anim'); searchWrap.style.opacity = '1'; }
+        if (catNav) { catNav.classList.remove('pre-anim'); catNav.style.opacity = '1'; }
+      };
+      setTimeout(forceReveal, 2500);
+
+      try {
+        if (mascotWrap) {
+          requestAnimationFrame(() => mascotWrap.classList.add('land'));
+
+          setTimeout(() => { if (mascotBubble) mascotBubble.classList.add('show'); }, 750);
+
+          setTimeout(() => {
+            if (searchWrap) { searchWrap.classList.remove('pre-anim'); searchWrap.classList.add('present-in'); }
+          }, 950);
+          setTimeout(() => {
+            if (catNav) { catNav.classList.remove('pre-anim'); catNav.classList.add('present-in'); }
+          }, 1150);
+
+          setTimeout(() => {
+            mascotWrap.classList.add('fade-out');
+            setTimeout(() => { mascotWrap.style.display = 'none'; }, 600);
+          }, 4200);
+        } else {
+          forceReveal();
+        }
+      } catch (err) {
+        console.error(err);
+        forceReveal();
       }
     }, 480);
   });
